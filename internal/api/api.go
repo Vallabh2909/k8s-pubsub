@@ -1,20 +1,14 @@
 package api
 
-type Topic struct{
-	Subscribers []chan PublishRequest
-	Channel chan PublishRequest
-	Name string
-}
-
-type TopicRequest struct{
+type TopicRequest struct {
 	Name string `json:"name"`
 }
-type TopicResponse struct{
+type TopicResponse struct {
 	Message string `json:"message"`
 }
 type PublishRequest struct {
-	Topic string `json:"topic"`
-	Event string `json:"event"`
+	Topic   string `json:"topic"`
+	Event   string `json:"event"`
 	Message string `json:"message"`
 }
 
@@ -27,16 +21,6 @@ type SubscribeRequest struct {
 }
 
 type SubscribeResponse struct {
-	Event string `json:"event"`
+	Event   string `json:"event"`
 	Message string `json:"message"`
 }
-
-func (t *Topic) Start(){
-	for{
-		msg:=<-t.Channel
-		for _,subscriber:= range t.Subscribers{
-			subscriber<-msg
-		}
-	}
-}
-
