@@ -94,6 +94,7 @@ func main() {
 		w.Header().Set("Content-type", "application/json")
 		w.WriteHeader(http.StatusCreated)
 		flusher := w.(http.Flusher)
+		flusher.Flush()
 		for {
 			select {
 			case <-ctx.Done():
